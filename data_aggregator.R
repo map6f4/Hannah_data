@@ -1,4 +1,7 @@
 # Welcome! To data aggregator!
+#TO DO; bUG- ON LINE 82, MATCHES STUFF IT SHOULDN'T
+
+
 
 # Read in the data file
 dat <- read.delim("./raw_data/Sub1.txt") 
@@ -54,7 +57,7 @@ dat$race[grep("White", dat$FaceFilename)] = "White"
 
 # We can do a similar thing to fix the point of fixation
 forehead_range = c(1:8)
-eyes_range = c(9:16)
+eyes_range = c(9:16)  # Bug- 29 acts like 9
 nose_range = c(17:24)
 
 dat$fixation = NA # empty container
@@ -70,6 +73,16 @@ for (i in nose_range) {
 # View(dat)
 sub2dat = dat[dat$ID == 2,]
 table(sub2dat$fixation, sub2dat$Block)
+
+#Fix Block 3 fixation data, too
+table(dat$FaceFilename[dat$Block==3]) # looks like range is 1-48
+
+sub2dat = dat[dat$ID == 2,]
+table(sub2dat$fixation, sub2dat$Block)
+
+
+
+
 
 # export data for analysis
 write.table(dat, "cleaned_data.txt", sep="\t", row.names=F)
